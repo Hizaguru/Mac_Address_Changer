@@ -1,4 +1,4 @@
-# This is a sample Python script.
+
 import subprocess #allows to spawn new processes, connect to their input/output/error pipes and obtain return codes
 import optparse #module for parsing command-line options, generates usage and help messages
 import re #regular expression operations module
@@ -24,7 +24,7 @@ def current_mac_address(interface):
     ifconfig_result = subprocess.check_output(["ifconfig", interface])
 
     regular_expression_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w", ifconfig_result)
-    #returns the "if config" result, if there's a mac address, if not, prints "Unable to read MAC address"
+    #returns the "ifconfig" command's mac address. If there's not a mac address, prints "Unable to read MAC address"
     if regular_expression_result:
         return regular_expression_result.group(0)
     else:
@@ -36,13 +36,14 @@ def current_mac_address(interface):
 
 
 options = get_arguments()#capture the value of options (returns from the get arguments)
+
 current_mac = current_mac_address(options.interface) #Get's the current mac address
 print("Mac address is : " + str(current_mac)) #prints to terminal as a string .
+
 change_mac(options.interface, options.new_mac)#calls change_mac function and executes all commands in it.
 
 current_mac = current_mac_address(options.interface)
-
-if current_mac == options.interface:
+if current_mac == options.new_mac:
     print("[+] Mac was changed. New mac is: " + current_mac)
 else:
     print("[+] Unable to change mac address")
