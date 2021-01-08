@@ -40,4 +40,9 @@ current_mac = current_mac_address(options.interface) #Get's the current mac addr
 print("Mac address is : " + str(current_mac)) #prints to terminal as a string .
 change_mac(options.interface, options.new_mac)#calls change_mac function and executes all commands in it.
 
+current_mac = current_mac_address(options.interface)
 
+if current_mac == options.interface:
+    print("[+] Mac was changed. New mac is: " + current_mac)
+else:
+    print("[+] Unable to change mac address")
